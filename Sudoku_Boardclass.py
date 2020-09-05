@@ -45,9 +45,28 @@ class board:
     def valid(self,x,y,number):
         #Checking row first:
         for i in range(self.size):
-            if self.b[x][i]==number:
+            if self.b[x][i]==number and i!=y:
                 return False
         for k in range(self.size):
-            if self.b[k][y]==number:
+            if self.b[k][y]==number and k!=x:
                 return False
+        boxX=x//3
+        boxY=y//3
+        for k in range(boxX*3,boxX*3+3):
+            for i in range(boxY*3,boxY*3+3):
+                if self.b[k][i]==number and k!=x and y!=i:
+                    return False
         return True
+    
+    def solve(self):
+        find=self.find_empty()
+        if not find:
+            return True
+        else:
+            row,col=find
+        for i in range(1,10):
+            if self.valid(row,col,i):
+                self.changeval(row,col,i)
+                if self.solve():
+                    return True
+                self.changeval(row,col,0)
