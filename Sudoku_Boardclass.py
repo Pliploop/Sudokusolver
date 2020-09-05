@@ -41,3 +41,13 @@ class board:
                 if self.b[k][i]==0:
                     return k,i
         return None
+
+    def valid(self,x,y,number):
+        #Checking row first:
+        for i in range(self.size):
+            if self.b[x][i]==number:
+                return False
+        for k in range(self.size):
+            if self.b[k][y]==number:
+                return False
+        return True

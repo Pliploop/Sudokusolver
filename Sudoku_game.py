@@ -1,7 +1,7 @@
 from Sudoku_Boardclass import board
 
 gameboard=board(9)
-gameboard.printboard()
 gameboard.changeval(0,0,1)
 gameboard.printboard()
-print(gameboard.find_empty())
+print(gameboard.valid(0,1,2))
+print(gameboard.valid(0,1,1))
