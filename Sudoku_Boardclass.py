@@ -9,21 +9,9 @@ class board:
 
     def get_size(self):
         return self.size
-
-    # def find_empty(self):
-    #     n=self.size
-    #     for k in range(n) :
-    #         for i in range(n) :
-    #             temp=self.b[k][i]
-    #             print(temp)
-    #             if temp==0:
-    #                 return k,i
     
-    def changeval(self,i,k,val):
-        print("ok")
-
     def printboard(self):
-        stringboard = self.b
+        stringboard = [['' for k in range(self.size)] for k in range(self.size)] 
         for k in range(len(stringboard)):
             for i in range(len(stringboard)):
                 temp = self.b[k][i]
@@ -41,4 +29,15 @@ class board:
             if ((k+1) % 3 == 0 and k != 0) or k == len(stringboard):
                 print("-------------------------")
 
+    def changeval(self,x,y,k):
+        self.b[x][y]=k
 
+    def reset(self):
+        self.b= [[0 for k in range(self.size)] for k in range(self.size)] 
+    
+    def find_empty(self):
+        for k in range(self.size):
+            for i in range(self.size):
+                if self.b[k][i]==0:
+                    return k,i
+        return None
