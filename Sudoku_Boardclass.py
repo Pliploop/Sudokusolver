@@ -1,11 +1,22 @@
 
 # Printboard function
 
+from PyQt5.QtWidgets import *
+from PyQt5 import QtCore
+from PyQt5 import Qt
+
 class board:
 
     def __init__(self,size):
         self.size=size
-        self.b= [[0 for k in range(size)] for k in range(size)] 
+        self.b= [[0 for k in range(size)] for k in range(size)]
+        self.Game=QApplication([])
+        self.window=QWidget()
+        self.layout=QVBoxLayout()
+        self.table=QTableWidget(9,9)
+        self.SolveButton=QPushButton('Solve')
+        self.Showbutton=QPushButton('Reset')
+        self.hlay=QHBoxLayout()
 
     def get_size(self):
         return self.size
@@ -70,3 +81,12 @@ class board:
                 if self.solve():
                     return True
                 self.changeval(row,col,0)
+
+    def setvalues(self,listt):
+        result=[]
+        for k in listt:
+            stringlist=list(k)
+            result.append(stringlist)
+        for k in range(self.size):
+            for i in range(self.size):
+                self.b[k][i]=int(result[k][i])
