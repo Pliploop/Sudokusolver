@@ -27,10 +27,11 @@ gameboard.table.setFixedHeight(273)
 
 ## Getting widgets and their connections
 ##connections
+gameboard.SolveButton.clicked.connect(gameboard.reset)
 gameboard.SolveButton.clicked.connect(gameboard.solve)
 gameboard.SolveButton.clicked.connect(gameboard.boardtogrid)
 gameboard.Showbutton.clicked.connect(gameboard.reset)
-
+gameboard.table.itemChanged.connect(gameboard.color)
 
 gameboard.layout.addWidget(gameboard.table)
 gameboard.layout.addLayout(gameboard.hlay)

@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtCore
 from PyQt5 import Qt
 from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QColor
 
 class board:
 
@@ -46,10 +47,30 @@ class board:
     def changeval(self,x,y,k):
         self.b[x][y]=k
 
+    def color(self,item):
+        row=item.row()
+        column=item.column()
+        text=item.text()
+        print(text)
+        if self.valid(row,column,int(text)):
+            item.setBackground(QColor(0,255,0))
+
+        else:
+            item.setBackground(QColor(255,0,0))
+            
+        if int(text)>9 or int(text)<1:
+            item.setBackground(QColor(255,0,0))
+        if text=='':
+            item.setBackground(QColor(0,0,0))
+            text='0'
+        self.b[row][column]=int(text)
+
     def reset(self):
+        self.table.blockSignals(True)
         self.indices=[]
         self.setvalues(self.lister) 
         self.boardtogrid()
+        self.table.blockSignals(False)
     
     def find_empty(self):
         for k in range(self.size):
@@ -75,8 +96,11 @@ class board:
         return True
     
     def solve(self):
+        
+        self.table.blockSignals(True)
         find=self.find_empty()
         if not find:
+            self.table.blockSignals(False)
             return True
         else:
             row,col=find
@@ -84,6 +108,7 @@ class board:
             if self.valid(row,col,i):
                 self.changeval(row,col,i)
                 if self.solve():
+                    self.table.blockSignals(False)
                     return True
                 self.changeval(row,col,0)
 
@@ -99,6 +124,7 @@ class board:
                     self.indices.append([k,i])
 
     def boardtogrid(self):
+        self.table.blockSignals(True)
         for i in range(self.size):
             for k in range(self.size):
                 if self.b[k][i]==0:
@@ -112,4 +138,7 @@ class board:
                     font = QFont()
                     font.setBold(True)
                     item.setFont(font)
+                    item.setBackground(QColor(227,227,227))
+                    
                 self.table.setItem(k,i,item)
+        self.table.blockSignals(False)
