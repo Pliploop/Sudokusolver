@@ -17,6 +17,7 @@ class board:
         self.SolveButton=QPushButton('Solve')
         self.Showbutton=QPushButton('Reset')
         self.hlay=QHBoxLayout()
+        self.lister=['600003005','903080000','051000600','000430007','008507100','400068000','007000980','000070402','800300006']
 
     def get_size(self):
         return self.size
@@ -43,8 +44,8 @@ class board:
     def changeval(self,x,y,k):
         self.b[x][y]=k
 
-    def reset(self):
-        self.b= [[0 for k in range(self.size)] for k in range(self.size)] 
+    def reset(self,):
+        self.setvalues(self.lister) 
     
     def find_empty(self):
         for k in range(self.size):
@@ -90,3 +91,14 @@ class board:
         for k in range(self.size):
             for i in range(self.size):
                 self.b[k][i]=int(result[k][i])
+
+    def boardtogrid(self):
+        for i in range(self.size):
+            for k in range(self.size):
+                if self.b[k][i]==0:
+                    inboard=''
+                else:
+                    inboard=str(self.b[k][i])
+                item=QTableWidgetItem(inboard)
+                item.setTextAlignment(QtCore.Qt.AlignCenter)
+                self.table.setItem(k,i,item)
