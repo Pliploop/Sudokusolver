@@ -6,16 +6,9 @@ from PyQt5 import Qt
 
 #Setting up the board
 gameboard=board(9)
-gameboard.setvalues(gameboard.lister)
+
 
 #Setting up the layout
-
-
-
-
-
-
-
 for k in range(gameboard.size):
     gameboard.table.setRowHeight(k,30)
     for i in range(gameboard.size): 
@@ -37,7 +30,7 @@ gameboard.table.setFixedHeight(273)
 gameboard.SolveButton.clicked.connect(gameboard.solve)
 gameboard.SolveButton.clicked.connect(gameboard.boardtogrid)
 gameboard.Showbutton.clicked.connect(gameboard.reset)
-gameboard.Showbutton.clicked.connect(gameboard.boardtogrid)
+
 
 gameboard.layout.addWidget(gameboard.table)
 gameboard.layout.addLayout(gameboard.hlay)
@@ -46,7 +39,7 @@ gameboard.layout.addLayout(gameboard.hlay)
 gameboard.hlay.addWidget(gameboard.SolveButton)
 gameboard.hlay.addWidget(gameboard.Showbutton)
 
-gameboard.boardtogrid()
+gameboard.reset()
 gameboard.window.setLayout(gameboard.layout)
 gameboard.window.show()
 gameboard.Game.exec_()

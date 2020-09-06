@@ -4,6 +4,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore
 from PyQt5 import Qt
+from PyQt5.QtGui import QFont
 
 class board:
 
@@ -18,6 +19,7 @@ class board:
         self.Showbutton=QPushButton('Reset')
         self.hlay=QHBoxLayout()
         self.lister=['600003005','903080000','051000600','000430007','008507100','400068000','007000980','000070402','800300006']
+        self.indices=[]
 
     def get_size(self):
         return self.size
@@ -44,8 +46,10 @@ class board:
     def changeval(self,x,y,k):
         self.b[x][y]=k
 
-    def reset(self,):
+    def reset(self):
+        self.indices=[]
         self.setvalues(self.lister) 
+        self.boardtogrid()
     
     def find_empty(self):
         for k in range(self.size):
@@ -91,6 +95,8 @@ class board:
         for k in range(self.size):
             for i in range(self.size):
                 self.b[k][i]=int(result[k][i])
+                if int(result[k][i])!=0:
+                    self.indices.append([k,i])
 
     def boardtogrid(self):
         for i in range(self.size):
@@ -101,4 +107,9 @@ class board:
                     inboard=str(self.b[k][i])
                 item=QTableWidgetItem(inboard)
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
+                if [k,i] in self.indices:
+                    item.setFlags(QtCore.Qt.ItemIsEditable)
+                    font = QFont()
+                    font.setBold(True)
+                    item.setFont(font)
                 self.table.setItem(k,i,item)
