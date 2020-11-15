@@ -6,6 +6,7 @@ from PyQt5 import QtCore
 from PyQt5 import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtGui import QColor
+import time
 
 class board:
 
@@ -107,10 +108,15 @@ class board:
         for i in range(1,10):
             if self.valid(row,col,i):
                 self.changeval(row,col,i)
+                # self.printboard()
+                
                 if self.solve():
                     self.table.blockSignals(False)
                     return True
                 self.changeval(row,col,0)
+                # self.printboard()
+                
+
 
     def setvalues(self,listt):
         result=[]
